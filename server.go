@@ -43,7 +43,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 // Retrieve a post
 // GET /post/1
 func handleGet(w http.ResponseWriter, r *http.Request) (err error) {
-	// pathの末尾のidを取得する
+	// pathの末尾のidを取得し、stringに変換する
 	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		return
@@ -82,6 +82,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) (err error) {
 // Update a post
 // PUT /post/1
 func handlePut(w http.ResponseWriter, r *http.Request) (err error) {
+	// pathの末尾のidを取得し、stringに変換する
 	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		return
@@ -93,6 +94,7 @@ func handlePut(w http.ResponseWriter, r *http.Request) (err error) {
 	len := r.ContentLength
 	body := make([]byte, len)
 	r.Body.Read(body)
+	// jsonを構造体に変換する
 	json.Unmarshal(body, &post)
 	err = post.update()
 	if err != nil {
@@ -105,6 +107,7 @@ func handlePut(w http.ResponseWriter, r *http.Request) (err error) {
 // Delete a post
 // DELETE /post/1
 func handleDelete(w http.ResponseWriter, r *http.Request) (err error) {
+	// pathの末尾のidを取得し、stringに変換する
 	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		return
