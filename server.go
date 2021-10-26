@@ -43,6 +43,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 // Retrieve a post
 // GET /post/1
 func handleGet(w http.ResponseWriter, r *http.Request) (err error) {
+	// pathの末尾のidを取得する
 	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		return
@@ -51,6 +52,7 @@ func handleGet(w http.ResponseWriter, r *http.Request) (err error) {
 	if err != nil {
 		return
 	}
+	// 構造体をindentありのjsonに変換
 	output, err := json.MarshalIndent(&post, "", "\t\t")
 	if err != nil {
 		return
@@ -67,6 +69,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) (err error) {
 	body := make([]byte, len)
 	r.Body.Read(body)
 	var post Post
+	// jsonを構造体に変換する
 	json.Unmarshal(body, &post)
 	err = post.create()
 	if err != nil {
